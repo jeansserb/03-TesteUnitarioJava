@@ -206,6 +206,17 @@ class ContaTest {
         assertEquals(150, destino.getSaldo(), 0.001);
     }
 
+    @ParameterizedTest
+    @ValueSource(doubles = {0, -10})
+    void transferir_ValorNaoPositivo_PreservaAmbosOsSaldos(double valor) {
+        var origem = new Conta("Maria", 200);
+        var destino = new Conta("João", 100);
+
+        assertThrows(IllegalArgumentException.class, () -> origem.transferir(destino, valor));
+        assertEquals(200, origem.getSaldo(), 0.001);
+        assertEquals(100, destino.getSaldo(), 0.001);
+    }
+
     // =======================================================
     //  Testes para encerrar
     //  Sugestão de testes:
