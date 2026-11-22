@@ -193,4 +193,13 @@ class ContaTest {
         assertFalse(conta.isAtiva());
         assertEquals(0, conta.getSaldo(), 0.001);
     }
+
+    @Test
+    void encerrar_ComSaldoPositivo_PreservaContaAtiva() {
+        var conta = new Conta("Maria", 1);
+
+        assertThrows(IllegalStateException.class, conta::encerrar);
+        assertTrue(conta.isAtiva());
+        assertEquals(1, conta.getSaldo(), 0.001);
+    }
 }
