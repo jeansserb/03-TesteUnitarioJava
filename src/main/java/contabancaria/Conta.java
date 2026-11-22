@@ -94,6 +94,9 @@ public class Conta {
      *   - A propriedade ativa deve ser alterada para false.
      */
     public void encerrar() {
+        if (!ativa) {
+            throw new IllegalStateException("A conta já está encerrada.");
+        }
         if (saldo != 0) {
             throw new IllegalStateException("Só é possível encerrar uma conta com saldo zero.");
         }
