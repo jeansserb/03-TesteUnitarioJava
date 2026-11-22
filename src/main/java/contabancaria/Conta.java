@@ -53,6 +53,7 @@ public class Conta {
      *   - O saldo deve ser atualizado corretamente.
      */
     public void depositar(double valor) {
+        validarContaAtiva();
         validarValorPositivo(valor);
         saldo += valor;
     }
@@ -106,6 +107,12 @@ public class Conta {
     private void validarValorPositivo(double valor) {
         if (valor <= 0) {
             throw new IllegalArgumentException("O valor deve ser maior que zero.");
+        }
+    }
+
+    private void validarContaAtiva() {
+        if (!ativa) {
+            throw new IllegalStateException("A conta está encerrada.");
         }
     }
 }
