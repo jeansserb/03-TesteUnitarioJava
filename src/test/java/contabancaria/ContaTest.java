@@ -136,6 +136,14 @@ class ContaTest {
     //    - Saque em conta inativa lança IllegalStateException
     // =======================================================
 
+    @Test
+    void sacar_ValorValido_AtualizaSaldo() {
+        var conta = new Conta("Maria", 100);
+
+        conta.sacar(40);
+
+        assertEquals(60, conta.getSaldo(), 0.001);
+    }
 
     // =======================================================
     //  Testes para transferir
