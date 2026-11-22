@@ -227,6 +227,23 @@ class ContaTest {
         assertEquals(100, destino.getSaldo(), 0.001);
     }
 
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void transferir_ContaInativa_PreservaAmbosOsSaldos(boolean origemInativa) {
+        var origem = new Conta("Maria", origemInativa ? 0 : 200);
+        var destino = new Conta("João", origemInativa ? 100 : 0);
+        var contaInativa = origemInativa ? origem : destino;
+        contaInativa.encerrar();
+        var saldoOrigem = origem.getSaldo();
+        var saldoDestino = destino.getSaldo();
+
+        var erro = assertThrows(IllegalStateException.class, () -> origem.transferir(destino, 50));
+        assertEquals("A conta está encerrada.", erro.getMessage());
+        assertEquals(saldoOrigem, origem.getSaldo(), 0.001);
+        assertEquals(saldoDestino, destino.getSaldo(), 0.001);
+        assertFalse(contaInativa.isAtiva());
+    }
+
     // =======================================================
     //  Testes para encerrar
     //  Sugestão de testes:
