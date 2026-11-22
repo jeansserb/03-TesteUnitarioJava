@@ -84,6 +84,8 @@ public class Conta {
      *   - O saldo de ambas as contas deve ser atualizado corretamente.
      */
     public void transferir(Conta destino, double valor) {
+        validarContaAtiva();
+        destino.validarContaAtiva();
         validarValorPositivo(valor);
         if (valor > saldo) {
             throw new IllegalStateException("Saldo insuficiente.");
